@@ -1,14 +1,55 @@
-# app/routes.py
-
-from flask import request, abort
-from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, TextMessage, TextSendMessage
-from app import app, handler, line_bot_api
-import pygame
 import time
 import random
-from app.pigpio_config import set_servo_angle
-from app.audio_config import play_sound
+import pigpio
+import pygame
+from flask import request, abort
+from linebot import LineBotApi, WebhookHandler
+from linebot.exceptions import InvalidSignatureError
+from linebot.models import MessageEvent, TextMessage, TextSendMessage
+from app import app
+
+# ラインボットAPIとハンドラの初期化
+line_bot_api = LineBotApi(app.config['LINE_CHANNEL_ACCESS_TOKEN'])
+handler = WebhookHandler(app.config['LINE_CHANNEL_SECRET'])
+
+# Servo Motor Configuration
+SERVO_PIN = 18
+pi = pigpio.pi()
+
+def set_servo_angle(angle):
+    assert 0 <= angle <= 180, '角度は0から180の間に注意する'
+    pulse_width = (angle / 180) * (2500 - 500) + 500
+    pi.set_servo_pulsewidth(SERVO_PIN, pulse_width)
+
+def play_sound(file_path, volume=20.0):
+    pygame.mixer.init()
+    pygame.mixer.music.load(file_path)
+    pygame.mixer.music.play()
+    while pygame.mixer.music.get_busy():
+        pygame.time.Clock().tick(10)
+
+def delivery_unlock_sequence():
+    set_servo_angle(60)
+    time.sleep(0.5)
+    set_servo_angle(90)
+    time.sleep(0.5)
+    play_sound("audio/app/announcement.mp3", volume=20.0)
+    set_servo_angle(119)
+    time.sleep(0.5)
+    set_servo_angle(90)
+    time.sleep(1)
+
+def homecoming_unlock_sequence():
+    set_servo_angle(60)
+    time.sleep(0.5)
+    set_servo_angle(90)
+    time.sleep(0.5)
+    audio_choice = random.choice(["audio/voice1.mp3", "audio/voice2.mp3","audio/voice3.mp3" ])
+    play_sound(audio_choice, volume=20.0)
+    set_servo_angle(119)
+    time.sleep(0.5)
+    set_servo_angle(90)
+    time.sleep(1)
 
 DELIVERY_MESSAGES = [
     '開けておいたよ！',
