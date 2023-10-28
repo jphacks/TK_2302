@@ -58,7 +58,7 @@ def homecoming_unlock_sequence():
     time.sleep(0.5)
     set_servo_angle(90)
     time.sleep(0.5)
-    audio_choice = random.choice(["audio/app/aoi2.mp3", "audio/app/aoi3.mp3", "audio/app/aoi4.mp3", "audio/app/aoi5.mp3"])
+    audio_choice = random.choice(["audio/voice1.mp3", "audio/voice2.mp3","audio/voice3.mp3" ])
     play_sound(audio_choice, volume=20.0)
     set_servo_angle(119)
     time.sleep(0.5)
@@ -90,12 +90,12 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     text = event.message.text
-    if text in ['宅配']:
-        delivery_unlock_sequence()
-        response_message = random.choice(DELIVERY_MESSAGES)
-    elif text in ['ただいまー', '帰ったよー', '鍵開けてー', 'ただいま']:
+    if text in ['ただいま', '鍵開けて']:
         homecoming_unlock_sequence()
         response_message = random.choice(HOMECOMING_MESSAGES)
+    elif text in ['宅配']:
+        delivery_unlock_sequence()
+        response_message = random.choice(DELIVERY_MESSAGES)
     else:
         response_message = text
     line_bot_api.reply_message(event.reply_token, TextSendMessage(response_message))
@@ -107,3 +107,4 @@ if __name__ == "__main__":
     parser.add_argument('-d', '--debug', default=False, help='debug')
     args = parser.parse_args()
     app.run(debug=args.debug, port=args.port)
+
