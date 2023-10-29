@@ -1,6 +1,6 @@
 # おかえり！Push
 
-<img src="main.png" alt="altテキスト" width="400" height="300">
+<img src="main.png" alt="altテキスト" width="800" height="500">
 
 ## 製品概要
 1. 疲れて帰宅した中、”ただいま”と返すと"おかえり!"と言ってくれて、マンションのオートロックを開けてくれるLINE Bot
@@ -41,7 +41,7 @@ Hack Dayの2日間で開発できた部分は、LINEから”ただいま"と送
 
 すると、サーボモーターが動いて、オートロックが開きます。さらに、スピーカーから「おかえり！」と言ってくれます。
 
-<img src="outlock.gif" alt="altテキスト" width="600" height="300">
+<img src="outlock.gif" alt="altテキスト" width="800" height="500">
 
 
 そして、LINEを見ると、「おかえりなさいませ！」というメッセージを返してくれました。
