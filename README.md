@@ -1,6 +1,6 @@
 # おかえり！Push
 
-![altテキスト](main.png)
+<img src="main.png" alt="altテキスト" width="400" height="300">
 
 ## 製品概要
 1. 疲れて帰宅した中、”ただいま”と返すと"おかえり!"と言ってくれて、マンションのオートロックを開けてくれるLINE Bot
