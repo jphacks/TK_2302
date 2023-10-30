@@ -1,4 +1,10 @@
 # おかえり！Push
+```
+$ source myenv/bin/activate
+```
+```
+$ pip install -r requirements.txt
+```
 
 <img src="images/main.png" alt="altテキスト" width="800" height="500">
 
@@ -100,9 +106,4 @@ LINE Messaging APIを使った特徴は、LINEでただいまと返してくれ�
 
 ### 
 
-```
-$ source myenv/bin/activate
-```
-```
-$ pip install -r requirements.txt
-```
+
