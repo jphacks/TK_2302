@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt
 import requests
 
 Check_every_time = False  # 検知したときにFFTプロット。実際に運用するときはFalse。
-# LINE_token = "（トークンをここにコピー）"
+LINE_token = "U7lf4Njva7q2of618fHlbXfMeDneRPSSUdWsRp3rR3G"
+
 
 RECORD_SECONDS = 1  # 第3回で使用した値に合わせる
 threshold = 7.0e6 # 要調整
