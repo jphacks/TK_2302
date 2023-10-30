@@ -9,7 +9,7 @@ Check_every_time = False # 検知したときにFFTプロット。実際に運�
 LINE_token = "U7lf4Njva7q2of618fHlbXfMeDneRPSSUdWsRp3rR3G"
 
 RECORD_SECONDS = 1 
-threshold = 1.0e6 # 要調整
+threshold = 5.0e5 # 要調整
 threshold2 = 5
 freq_indices = [694, 695, 696, 697, 833, 834, 835, 1669, 2084, 2085, 2086, 2087, 2503, 2780, 2781, 2782, 3244, 3245]
 
