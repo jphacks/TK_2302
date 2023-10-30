@@ -1,4 +1,4 @@
-#!/home/pi/TK_2302/myenv/bin/python3.11
+#!/home/tedzukayuki/LINEbot/myenv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

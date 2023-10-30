@@ -1,0 +1,4 @@
+line-bot-sdk==3.5.0
+pigpio==1.78
+pygame==2.5.2
+Flask==3.0.0

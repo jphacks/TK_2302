@@ -1,6 +1,6 @@
 # おかえり！Push
 
-<img src="main.png" alt="altテキスト" width="800" height="500">
+<img src="images/main.png" alt="altテキスト" width="800" height="500">
 
 ## 製品概要
 1. 疲れて帰宅した中、”ただいま”と返すと"おかえり!"と言ってくれて、マンションのオートロックを開けてくれるLINE Bot
@@ -28,28 +28,28 @@ Hack Dayの2日間で開発できた部分は、LINEから”ただいま"と送
 ### システム概要構成
 まず、僕の家のインターホンについて説明します。
 僕のマンションのインターホンは、通話ボタンを押した後に解錠ボタンが押されると、オートロックが開くタイプのものです。
-![altテキスト](IMG_0079.jpg)
+![altテキスト](images/IMG_0079.jpg)
 
 
 エントランスで、自分の部屋番号を呼び出している時に、LINE Botに「ただいま」と送信すると、LINE Messaging APIを通して、RaspberryPiは、LINEに「おかえり！」と返します。
 さらに、RaspberryPiのGPIOに繋がれたサーボモーターを制御して、オートロックを開けてくれます。
 通話中に、RaspberryPiに接続されたスピーカーから「おかえり！」と言ってくれるので、テキストと音声の両方で「おかえり！」と言ってくれます。
 
-![altテキスト](system.png)
+![altテキスト](images/system.png)
 
 #### おかえり！Pushを使ってみます！
 
 おかえり！Pushに「ただいま」と送ってみます！
-![altテキスト](linebot1.gif)
+![altテキスト](images/linebot1.gif)
 
 すると、サーボモーターが動いて、オートロックが開きます。さらに、スピーカーから「おかえり！」と言ってくれます。
 
-<img src="outlock.gif" alt="altテキスト" width="800" height="500">
+<img src="images/outlock.gif" alt="altテキスト" width="800" height="500">
 
 
 そして、LINEを見ると、「おかえりなさいませ！」というメッセージを返してくれました。
 
-![altテキスト](linebot2.gif)
+![altテキスト](images/linebot2.gif)
 
 
 #### 1. 特長 1
@@ -97,3 +97,13 @@ LINE Messaging APIを使った特徴は、LINEでただいまと返してくれ�
 
 -
 -
+
+### 
+
+```
+$ source myenv/bin/activate
+```
+```
+$ pip install -r requirements.txt
+ 
+```
