@@ -2,7 +2,6 @@ import pyaudio
 import wave
 import numpy as np
 import time
-from Pysound_Error_hider import noalsaerr # ALSA Errorが出ないためのおまじない
 import matplotlib.pyplot as plt
 
 Check_every_time = True # 検知したときにFFTプロット。実際に運用するときはFalse。
@@ -19,8 +18,6 @@ RATE = 44100
 rng = int(RATE / CHUNK * RECORD_SECONDS)
 
 def setup():
-    with noalsaerr(): # ALSA Errorが出ないためのおまじない
-        p = pyaudio.PyAudio()
     stream = p.open(format=FORMAT,
                     channels=CHANNELS,
                     input_device_index = input_device_index,
