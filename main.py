@@ -4,10 +4,10 @@ import time
 import matplotlib.pyplot as plt
 import os
 import subprocess
-import requests
-import picamera
 from linebot import LineBotApi
 from linebot.models import ImageSendMessage
+import requests
+import picamera
 
 Check_every_time = True  # 検知したときにFFTプロット。実際に運用するときはFalse。
 
@@ -64,44 +64,30 @@ def check_plot(d):
 # カメラキャプチャ関数
 def capture_image():
     try:
-        # fswebcamコマンドを使用して画像をキャプチャ
-        image_filename = "captured_image.jpg"
-        subprocess.call(["fswebcam", "-r", "1280x720", "--no-banner", image_filename])
-        return image_filename
+        with picamera.PiCamera() as camera:
+            camera.resolution = (1024, 768)
+            camera.start_preview()
+            # Camera warm-up time
+            time.sleep(2)
+            camera.capture('captured_image.jpg')
+        return 'captured_image.jpg'
     except Exception as e:
         print("Error capturing image:", str(e))
         return None
 
-def send_line_notification(image_filename):
-    url = "https://notify-api.line.me/api/notify"
-    token = "取得したトークン"
-    headers = {"Authorization": "Bearer " + token}
+def send_image_to_line(image_filename):
+    try:
+        url = "https://notify-api.line.me/api/notify"
+        token = "Your_Line_Notify_Token"  # Replace with your actual LINE Notify token
+        headers = {"Authorization": "Bearer " + token}
 
-    message = "音が検知されました"  # 任意のメッセージ
-
-    payload = {"message": message}
-    files = {"imageFile": open(image_filename, "rb")}
-    r = requests.post(url, headers=headers, params=payload, files=files)
-
-def delivery_unlock_sequence():
-    # ここに宅配のアンロックシーケンスを追加
-    pass
-
-def homecoming_unlock_sequence():
-    # ここに帰宅のアンロックシーケンスを追加
-    pass
-
-DELIVERY_MESSAGES = [
-    '開けておいたよ！',
-    '置き配って伝えておいたよ〜！'
-]
-
-HOMECOMING_MESSAGES = [
-    'おかえり〜！鍵開けたよー',
-    'お帰りなさい！',
-    'おかえりだね！鍵開けたよー',
-    'おつかれさま！'
-]
+        message = "Picture"
+        payload = {"message": message}
+        files = {"imageFile": open(image_filename, "rb")}
+        r = requests.post(url, headers=headers, params=payload, files=files)
+        print("Image sent to LINE")
+    except Exception as e:
+        print("Error sending image to LINE:", str(e))
 
 if __name__ == '__main__':
     p, stream = setup()
@@ -120,7 +106,7 @@ if __name__ == '__main__':
 
                 if image_filename:
                     # 画像をLINEに送信
-                    send_line_notification(image_filename)
+                    send_image_to_line(image_filename)
 
                 time.sleep(5)
                 print("Keep watching...")
