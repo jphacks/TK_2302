@@ -1,7 +1,7 @@
 # おかえり！Push
 <img src="images/main.png" alt="altテキスト" width="800" height="500">
 
-## セットアップ
+## セットアップ(usbマイクとusbカメラが必要)
 ```bash
 source myenv/bin/activate
 pip install -r requirements.txt
@@ -37,7 +37,8 @@ https://zenn.dev/yukitezuka/articles/1985fc12052e5a
 
 まずは、インターホン音をFFT(高速フーリエ変換)して、インターホン音のみを認識するプログラムを作成。
 
-使い方: `record.py`を実行してインターホンの音を録音. `output.wav`に保存される.
+使い方: `check_dev_id.py`でRaspberryPiに接続されているマイクのデバイス番号を取得.
+`record.py`を実行してインターホンの音を録音. `output.wav`に保存される.
 jupyternotebook`FFT.opynb`で、録音した音声をplotし、fftを行い、検出に使うデータ点を決める.
 インターホンの音のみを検出するように、`test_detector.py`を実行しながらエンジニアリング.
 `test_notifier.py`を実行すると、インターホンの音が検出されるとLINE Notifyに通知が来ます。
