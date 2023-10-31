@@ -1,9 +1,13 @@
 # おかえり！Push
-```
-$ source myenv/bin/activate
-```
-```
-$ pip install -r requirements.txt
+```bash
+source myenv/bin/activate
+pip install -r requirements.txt
+
+sudo apt-get install portaudio19-dev
+pip install pyaudio
+sudo apt-get install python3-pandas
+sudo apt-get install libopenblas-dev
+pip install numpy
 ```
 
 <img src="images/main.png" alt="altテキスト" width="800" height="500">
