@@ -8,7 +8,7 @@ import requests
 Check_every_time = False  # 検知したときにFFTプロット。実際に運用するときはFalse。
 
 RECORD_SECONDS = 1  
-threshold = 7.0e5  # 要調整
+threshold = 1.0e5  # 要調整
 freq_indices = [694, 695, 696, 697, 833, 834, 835, 1669, 2084, 2085, 2086, 2087, 2503, 2780, 2781, 2782, 3244, 3245]
 input_device_index = 1
 CHUNK = 1024 * 8
