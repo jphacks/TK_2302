@@ -1,5 +1,5 @@
 # おかえり！Push
-<img src="images/main.png" alt="altテキスト" width="800" height="500">
+![altテキスト](images/main.png)
 
 ## セットアップ(RaspberryPi+usbマイク+usbカメラが必要)
 ```bash
