@@ -1,10 +1,12 @@
-import requests
-import time
-import picamera
 import pyaudio
 import numpy as np
+import time
+import matplotlib.pyplot as plt
 import os
 import subprocess
+import requests  # Add this import for HTTP requests
+from linebot import LineBotApi
+from linebot.models import ImageSendMessage
 
 Check_every_time = True  # 検知したときにFFTプロット。実際に運用するときはFalse。
 
@@ -19,7 +21,11 @@ CHANNELS = 1
 RATE = 44100
 rng = int(RATE / CHUNK * RECORD_SECONDS)
 
-LINE_token = "U7lf4Njva7q2of618fHlbXfMeDneRPSSUdWsRp3rR3G"
+# LINE Botのアクセストークンと送信先のLINEユーザーID
+CHANNEL_ACCESS_TOKEN = "27oMU1uJxuOyrGdcC2oNz4cT/PvDYdgZcYS5F26MMx3hg6UYPDB6GDTPQ+rHd47L0v0/++S+tbiDRCLYAkiCW41Nc0E8ifqT28nIB/qCkr7TKpgxsr1Iy/P1Kn0/ZHEYs4Vd13feAn7k7t2dkcfBbAdB04t89/1O/w1cDnyilFU="
+LINE_USER_ID = "Ubdf7984c257cb0ee200f04a370d02b83"
+
+line_bot_api = LineBotApi(CHANNEL_ACCESS_TOKEN)
 
 def setup():
     p = pyaudio.PyAudio()
@@ -65,17 +71,27 @@ def capture_image():
         print("Error capturing image:", str(e))
         return None
 
-DELIVERY_MESSAGES = [
-    '開けておいたよ！',
-    '置き配って伝えておいたよ〜！'
-]
-
-HOMECOMING_MESSAGES = [
-    'おかえり〜！鍵開けたよー',
-    'お帰りなさい！',
-    'おかえりだね！鍵開けたよー',
-    'おつかれさま！'
-]
+def send_image_to_line_notify(image_filename):
+    try:
+        # LINE Notify APIのトークンをセット
+        line_notify_token = "YOUR_LINE_NOTIFY_TOKEN"  # 有効なトークンに置き換える
+        
+        # LINE Notifyに画像を送信するためのURL
+        line_notify_api_url = "https://notify-api.line.me/api/notify"
+        
+        # 画像をLINE Notifyに送信
+        headers = {"Authorization": "Bearer " + line_notify_token}
+        files = {"imageFile": open(image_filename, "rb")}
+        data = {"message": "Someone is at the door!"}  # 任意のメッセージを追加
+        
+        response = requests.post(line_notify_api_url, headers=headers, files=files, data=data)
+        
+        if response.status_code == 200:
+            print("Image sent to LINE Notify successfully")
+        else:
+            print("Failed to send image to LINE Notify. Status code:", response.status_code)
+    except Exception as e:
+        print("Error sending image to LINE Notify:", str(e))
 
 if __name__ == '__main__':
     p, stream = setup()
@@ -94,13 +110,7 @@ if __name__ == '__main__':
                 
                 if image_filename:
                     # 画像をLINE Notifyに送信
-                    url = "https://notify-api.line.me/api/notify"
-                    headers = {"Authorization": "Bearer " + LINE_token}
-                    message = "Someone is at the door!"
-                    payload = {"message": message}
-                    files = {"imageFile": open(image_filename, "rb")}
-                    r = requests.post(url, headers=headers, params=payload, files=files)
-                    print("LINE notification sent!")
+                    send_image_to_line_notify(image_filename)
 
                 time.sleep(5)
                 print("Keep watching...")
