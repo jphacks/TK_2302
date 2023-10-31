@@ -40,7 +40,8 @@ https://zenn.dev/yukitezuka/articles/1985fc12052e5a
 使い方: `check_dev_id.py`でRaspberryPiに接続されているマイクのデバイス番号を取得.
 `record.py`を実行してインターホンの音を録音. `output.wav`に保存される.
 jupyternotebook`FFT.opynb`で、録音した音声をplotし、fftを行い、検出に使うデータ点を決める.
-インターホンの音のみを検出するように、`test_detector.py`を実行しながらエンジニアリング.gitで介しながら、RaspberryPiとMacのjupyternotebookを同期させて開発をしました.
+インターホンの音のみを検出するように、`test_detector.py`を実行しながらエンジニアリング.
+gitで、RaspberryPiとMacのjupyternotebookを同期させて開発をしました.
 
 `test_notifier.py`を実行すると、インターホンの音が検出されるとLINE Notifyに通知が来ます.
 
@@ -52,7 +53,7 @@ jupyternotebook`FFT.opynb`で、録音した音声をplotし、fftを行い、�
 
 ### 解決出来ること
 
-戸建用は、スマホでインターホンの応答ができるスマートドアベルが売られており、独自に設置できる。しかしながら、集合住宅では設置は不可能である。そのような問題を解決するべく、我々は、RaspberryPiで外付けで解決した。
+戸建用は、スマホでインターホンの応答ができるスマートドアベルが売られており、独自に設置できる。しかしながら、集合住宅では設置は不可能である。そのような問題を解決するべく、RaspberryPiで外付けで解決した。
 
 ### 今後の展望
 
