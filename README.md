@@ -33,8 +33,16 @@ https://zenn.dev/yukitezuka/articles/1985fc12052e5a
 ### 製品説明
 
 #### 1. 特長 1
-まずは、インターホン音をFFT(高速フーリエ変換)して、インターホン音のみを認識するプログラムを作成
+
+まずは、インターホン音をFFT(高速フーリエ変換)して、インターホン音のみを認識するプログラムを作成。
+
+使い方: `record.py`を実行してインターホンの音を録音. `output.wav`に保存される.
+jupyternotebook`FFT.opynb`で、録音した音声をplotし、fftを行い、検出に使うデータ点を決める.
+インターホンの音のみを検出するように、`test_detector.py`を実行しながらエンジニアリング.
+`test_notifier.py`を実行すると、インターホンの音が検出されるとLINE Notifyに通知が来ます。
+
 ![altテキスト](images/fft.png)
+
 
 #### 2. 特長 2
 
@@ -60,15 +68,18 @@ https://zenn.dev/yukitezuka/articles/1985fc12052e5a
 #### API・データ
 
 - LINE Messaging API
+- LINE Notify API
+- ngrok
 
 #### フレームワーク・ライブラリ・モジュール
 
 - Flask
-- ngrok
+- pyaudio
+- opencv
 
 #### デバイス
 
-- RaspberryPi
+- RaspberryPi4
 
 ### 独自技術
 
