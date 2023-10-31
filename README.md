@@ -1,4 +1,7 @@
 # おかえり！Push
+<img src="images/main.png" alt="altテキスト" width="800" height="500">
+
+## セットアップ
 ```bash
 source myenv/bin/activate
 pip install -r requirements.txt
@@ -9,8 +12,6 @@ sudo apt-get install python3-pandas
 sudo apt-get install libopenblas-dev
 pip install numpy
 ```
-
-<img src="images/main.png" alt="altテキスト" width="800" height="500">
 
 ## 製品概要
 
