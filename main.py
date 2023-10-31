@@ -31,7 +31,8 @@ def setup():
     stream = p.open(format=FORMAT,
                     channels=CHANNELS,
                     input_device_index=input_device_index,
-                    rate=RATE,
+                    rate=gRATE,
+                    
                     input=True,
                     frames_per_buffer=CHUNK,
                     )
