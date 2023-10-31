@@ -2,7 +2,6 @@ import pyaudio
 import numpy as np
 import time
 import matplotlib.pyplot as plt
-import os
 import subprocess
 from linebot import LineBotApi
 from linebot.models import ImageSendMessage
@@ -70,13 +69,13 @@ def capture_image():
         print("Error capturing image:", str(e))
         return None
 
-def delivery_unlock_sequence():
-    # ここに宅配のアンロックシーケンスを追加
-    pass
-
-def homecoming_unlock_sequence():
-    # ここに帰宅のアンロックシーケンスを追加
-    pass
+def send_image_to_line(image_filename):
+    # 画像をLINEに送信
+    image_message = ImageSendMessage(
+        original_content_url=image_filename,
+        preview_image_url=image_filename
+    )
+    line_bot_api.push_message(LINE_USER_ID, image_message)
 
 DELIVERY_MESSAGES = [
     '開けておいたよ！',
@@ -101,18 +100,13 @@ if __name__ == '__main__':
                 print("Someone is at the door. (amp = {:.2e}/{:.1e})".format(amp, threshold))
                 if Check_every_time:
                     check_plot(d)
-                
+
                 # USBカメラで画像をキャプチャ
                 image_filename = capture_image()
-                
+
                 if image_filename:
                     # 画像をLINEに送信
-                    image_url = "https://example.com/path/to/your/captured_image.jpg"  # 有効なHTTPS URLに置き換える
-                    image_message = ImageSendMessage(
-                        original_content_url=image_url,
-                        preview_image_url=image_url
-                    )
-                    line_bot_api.push_message(LINE_USER_ID, image_message)
+                    send_image_to_line(image_filename)  # 画像をLINEに送信
 
                 time.sleep(5)
                 print("Keep watching...")
