@@ -2,11 +2,10 @@ import pyaudio
 import wave
 import numpy as np
 import time
-import matplotlib.pyplot as plt
 import requests
-import cv2  # OpenCVライブラリを追加
+import subprocess
 
-Check_every_time = False 
+Check_every_time = False
 LINE_token = "U7lf4Njva7q2of618fHlbXfMeDneRPSSUdWsRp3rR3G"
 
 RECORD_SECONDS = 1
@@ -50,39 +49,20 @@ def calc_FFTamp(frames, freq_indices, freq_indices2):
         amp2 += fft_data[i]
     return amp, amp2
 
-def check_plot(d):
-    fft_data = np.abs(np.fft.fft(d))    #FFTした信号の強度
-    freqList = np.fft.fftfreq(d.shape[0], d=1.0/RATE)    #周波数（グラフの横軸）の取得
-    plt.plot(freqList, fft_data)
-    plt.xlim(0, 5000)    #0～5000Hzまでとりあえず表示する
-    plt.show()
-
 def send_LINE(token, amp, amp2, threshold, threshold2):
     url = "https://notify-api.line.me/api/notify"
     token = token
     headers = {"Authorization": "Bearer " + token}
-    message =  "が鳴ってるよ\n強度 {:.2e} --- 基準 {:.1e}\n比率 {:.2e} --- 基準 {:.1e}".format(amp, threshold, amp/amp2, threshold2)
+    message = "が鳴ってるよ\n強度 {:.2e} --- 基準 {:.1e}\n比率 {:.2e} --- 基準 {:.1e}".format(amp, threshold, amp / amp2, threshold2)
     payload = {"message": message}
     r = requests.post(url, headers=headers, params=payload)
 
-# 画像のキャプチャと送信を行う関数を追加
-def capture_and_send_image(token):
-    cap = cv2.VideoCapture(0)  # カメラデバイスのIDは必要に応じて調整する
-
-    ret, frame = cap.read()
-    if ret:
-        cv2.imwrite('captured_image.jpg', frame)
-
-        url = "https://notify-api.line.me/api/notify"
-        headers = {"Authorization": "Bearer " + token}
-        message = "Someone is at the door."
-        payload = {"message": message}
-        files = {'imageFile': open('captured_image.jpg', 'rb')}
-        r = requests.post(url, headers=headers, params=payload, files=files)
-
-        cap.release()
-    else:
-        print("Failed to capture image")
+# Capture and save an image using subprocess to call a command-line tool
+def capture_and_save_image():
+    try:
+        subprocess.run(["fswebcam", "-r", "1280x720", "--no-banner", "captured_image.jpg"])  # Adjust resolution and other options as needed
+    except Exception as e:
+        print(f"Failed to capture image: {e}")
 
 if __name__ == '__main__':
     p, stream = setup()
@@ -91,12 +71,13 @@ if __name__ == '__main__':
         while True:
             d = collect_data(stream, rng, CHUNK)
             amp, amp2 = calc_FFTamp(d, freq_indices, freq_indices2)
-            if (amp > threshold) & (amp/amp2 > threshold2):
+            if (amp > threshold) & (amp / amp2 > threshold2):
                 print("Someone is at the door.")
                 send_LINE(LINE_token, amp, amp2, threshold, threshold2)
-                capture_and_send_image(LINE_token)  # 画像をキャプチャして送信
+                capture_and_save_image()  # Capture and save an image
                 if Check_every_time:
-                    check_plot(d)
+                    # You can display the image here if needed
+                    pass
                 time.sleep(5)
                 print("Keep watching...")
     except KeyboardInterrupt:
