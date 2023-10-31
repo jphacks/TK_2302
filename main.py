@@ -107,9 +107,10 @@ if __name__ == '__main__':
                 
                 if image_filename:
                     # 画像をLINEに送信
+                    image_url = "https://example.com/path/to/your/captured_image.jpg"  # 有効なHTTPS URLに置き換える
                     image_message = ImageSendMessage(
-                        original_content_url=image_filename,
-                        preview_image_url=image_filename
+                        original_content_url=image_url,
+                        preview_image_url=image_url
                     )
                     line_bot_api.push_message(LINE_USER_ID, image_message)
 
