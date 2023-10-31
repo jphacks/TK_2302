@@ -4,6 +4,7 @@ import time
 import matplotlib.pyplot as plt
 import os
 import subprocess
+import requests  # Add this import
 from linebot import LineBotApi
 from linebot.models import ImageSendMessage
 
@@ -86,10 +87,13 @@ if __name__ == '__main__':
                 
                 if image_filename:
                     # 画像をLINE Notifyに送信
-                    line_bot_api.notify(
-                        message='Someone is at the door!',
-                        image_file=open(image_filename, 'rb')
-                    )
+                    message = 'Someone is at the door!'
+                    image_url = "https://notify-api.line.me/api/notify"
+                    headers = {'Authorization': f'Bearer {LINE_NOTIFY_TOKEN}'}
+                    payload = {'message': message}
+                    files = {'imageFile': open(image_filename, 'rb')}
+                    response = requests.post(image_url, headers=headers, params=payload, files=files)
+                    print("Notification sent:", response.text)
 
                 time.sleep(5)
                 print("Keep watching...")
