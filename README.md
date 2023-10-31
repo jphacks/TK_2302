@@ -10,6 +10,8 @@ $ pip install -r requirements.txt
 
 ## 製品概要
 
+記事:
+https://zenn.dev/yukitezuka/articles/1985fc12052e5a
 ### 背景
 再配達を撲滅したかった。
 
