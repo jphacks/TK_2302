@@ -4,16 +4,18 @@ import time
 import matplotlib.pyplot as plt
 import os
 import subprocess
+import requests
+import picamera
 from linebot import LineBotApi
 from linebot.models import ImageSendMessage
 
-Check_every_time = True
+Check_every_time = True  # 検知したときにFFTプロット。実際に運用するときはFalse。
 
 RECORD_SECONDS = 1
-threshold = 5.0e5
+threshold = 5.0e5  # 要調整
 freq_indices = [694, 695, 696, 697, 833, 834, 835, 1669, 2084, 2085, 2086, 2087, 2503, 2780, 2781, 2782, 3244, 3245]
 
-input_device_index = 1
+input_device_index = 1  # check_dev_id.pyで確認したデバイス番号に置き換え
 CHUNK = 1024 * 8
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
@@ -52,6 +54,13 @@ def calc_FFTamp(frames, freq_indices):
         amp += fft_data[i]
     return amp
 
+def check_plot(d):
+    fft_data = np.abs(np.fft.fft(d))  # FFTした信号の強度
+    freqList = np.fft.fftfreq(d.shape[0], d=1.0 / RATE)  # 周波数（グラフの横軸）の取得
+    plt.plot(freqList, fft_data)
+    plt.xlim(0, 5000)  # 0～5000Hzまでとりあえず表示する
+    plt.show()
+
 # カメラキャプチャ関数
 def capture_image():
     try:
@@ -62,6 +71,25 @@ def capture_image():
     except Exception as e:
         print("Error capturing image:", str(e))
         return None
+
+def send_line_notification(image_filename):
+    url = "https://notify-api.line.me/api/notify"
+    token = "取得したトークン"
+    headers = {"Authorization": "Bearer " + token}
+
+    message = "音が検知されました"  # 任意のメッセージ
+
+    payload = {"message": message}
+    files = {"imageFile": open(image_filename, "rb")}
+    r = requests.post(url, headers=headers, params=payload, files=files)
+
+def delivery_unlock_sequence():
+    # ここに宅配のアンロックシーケンスを追加
+    pass
+
+def homecoming_unlock_sequence():
+    # ここに帰宅のアンロックシーケンスを追加
+    pass
 
 DELIVERY_MESSAGES = [
     '開けておいたよ！',
@@ -86,18 +114,13 @@ if __name__ == '__main__':
                 print("Someone is at the door. (amp = {:.2e}/{:.1e})".format(amp, threshold))
                 if Check_every_time:
                     check_plot(d)
-                
+
                 # USBカメラで画像をキャプチャ
                 image_filename = capture_image()
-                
+
                 if image_filename:
                     # 画像をLINEに送信
-                    image_url = "https://a020-36-240-252-22.ngrok-free.app/captured_image.jpg"  # 提供されたngrokのURLに置き換え
-                    image_message = ImageSendMessage(
-                        original_content_url=image_url,
-                        preview_image_url=image_url
-                    )
-                    line_bot_api.push_message(LINE_USER_ID, image_message)
+                    send_line_notification(image_filename)
 
                 time.sleep(5)
                 print("Keep watching...")
