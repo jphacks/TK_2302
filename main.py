@@ -6,8 +6,6 @@ import os
 import subprocess
 from linebot import LineBotApi
 from linebot.models import ImageSendMessage
-import requests
-import picamera
 
 Check_every_time = True  # 検知したときにFFTプロット。実際に運用するときはFalse。
 
@@ -22,11 +20,10 @@ CHANNELS = 1
 RATE = 44100
 rng = int(RATE / CHUNK * RECORD_SECONDS)
 
-# LINE Botのアクセストークンと送信先のLINEユーザーID
-CHANNEL_ACCESS_TOKEN = "27oMU1uJxuOyrGdcC2oNz4cT/PvDYdgZcYS5F26MMx3hg6UYPDB6GDTPQ+rHd47L0v0/++S+tbiDRCLYAkiCW41Nc0E8ifqT28nIB/qCkr7TKpgxsr1Iy/P1Kn0/ZHEYs4Vd13feAn7k7t2dkcfBbAdB04t89/1O/w1cDnyilFU="
-LINE_USER_ID = "Ubdf7984c257cb0ee200f04a370d02b83"
+# LINE Notifyのアクセストークン
+LINE_NOTIFY_TOKEN = "U7lf4Njva7q2of618fHlbXfMeDneRPSSUdWsRp3rR3GE"  # LINE Notifyのトークンを設定
 
-line_bot_api = LineBotApi(CHANNEL_ACCESS_TOKEN)
+line_bot_api = LineBotApi(LINE_NOTIFY_TOKEN)
 
 def setup():
     p = pyaudio.PyAudio()
@@ -64,30 +61,13 @@ def check_plot(d):
 # カメラキャプチャ関数
 def capture_image():
     try:
-        with picamera.PiCamera() as camera:
-            camera.resolution = (1024, 768)
-            camera.start_preview()
-            # Camera warm-up time
-            time.sleep(2)
-            camera.capture('captured_image.jpg')
-        return 'captured_image.jpg'
+        # fswebcamコマンドを使用して画像をキャプチャ
+        image_filename = "captured_image.jpg"
+        subprocess.call(["fswebcam", "-r", "1280x720", "--no-banner", image_filename])
+        return image_filename
     except Exception as e:
         print("Error capturing image:", str(e))
         return None
-
-def send_image_to_line(image_filename):
-    try:
-        url = "https://notify-api.line.me/api/notify"
-        token = "Your_Line_Notify_Token"  # Replace with your actual LINE Notify token
-        headers = {"Authorization": "Bearer " + token}
-
-        message = "Picture"
-        payload = {"message": message}
-        files = {"imageFile": open(image_filename, "rb")}
-        r = requests.post(url, headers=headers, params=payload, files=files)
-        print("Image sent to LINE")
-    except Exception as e:
-        print("Error sending image to LINE:", str(e))
 
 if __name__ == '__main__':
     p, stream = setup()
@@ -100,13 +80,16 @@ if __name__ == '__main__':
                 print("Someone is at the door. (amp = {:.2e}/{:.1e})".format(amp, threshold))
                 if Check_every_time:
                     check_plot(d)
-
+                
                 # USBカメラで画像をキャプチャ
                 image_filename = capture_image()
-
+                
                 if image_filename:
-                    # 画像をLINEに送信
-                    send_image_to_line(image_filename)
+                    # 画像をLINE Notifyに送信
+                    line_bot_api.notify(
+                        message='Someone is at the door!',
+                        image_file=open(image_filename, 'rb')
+                    )
 
                 time.sleep(5)
                 print("Keep watching...")
