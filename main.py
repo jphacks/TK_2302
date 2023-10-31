@@ -9,6 +9,9 @@ from linebot import LineBotApi
 from linebot.models import ImageMessage
 from io import BytesIO
 
+CHANNEL_ACCESS_TOKEN="27oMU1uJxuOyrGdcC2oNz4cT/PvDYdgZcYS5F26MMx3hg6UYPDB6GDTPQ+rHd47L0v0/++S+tbiDRCLYAkiCW41Nc0E8ifqT28nIB/qCkr7TKpgxsr1Iy/P1Kn0/ZHEYs4Vd13feAn7k7t2dkcfBbAdB04t89/1O/w1cDnyilFU="
+LINE_USER_ID="Ubdf7984c257cb0ee200f04a370d02b83"
+
 Check_every_time = True  # 検知したときにFFTプロット。実際に運用するときはFalse。
 
 RECORD_SECONDS = 1
