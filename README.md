@@ -4,15 +4,35 @@
 ## セットアップ(RaspberryPi+usbマイク+usbカメラが必要)
 
 ```bash
+export LINE_CHANNEL_SECRET=YOUR_LINE_CHANNEL_SECRET
+export LINE_CHANNEL_ACCESS_TOKEN=YOUR_LINE_CHANNEL_ACCESS_TOKEN
+sudo apt-get update
+sudo apt-get install tmux -y
+tmux
+
+#session1
+sudo apt-get install portaudio19-dev
+sudo apt-get install libopenblas-dev
+sudo apt-get install python3-pandas
 source myenv/bin/activate
 pip install -r requirements.txt
 
-sudo apt-get install portaudio19-dev
-pip install pyaudio
-sudo apt-get install python3-pandas
-sudo apt-get install libopenblas-dev
-pip install numpy
+python Notify.py
+
+#session2
+sudo pigpiod
+
+python Unlocker.py
+
+#session3
+unzip ngrok-stable-linux-arm.zip # ngrokをinstall
+chmod +x ngrok
+sudo mv ngrok /usr/local/bin/
+ngrok authtoken YOUR_AUTHTOKEN
+ngrok http 8000
+
 ```
+
 
 スイッチングはサーボモータもしくはswithBotAPIを使用. 
 スピーカーを接続することで、音声でも”おかえり"と言わせることができます。
@@ -41,6 +61,8 @@ https://zenn.dev/yukitezuka/articles/1985fc12052e5a
 
 まずは、インターホン音をFFT(高速フーリエ変換)して、インターホン音のみを認識するプログラムを作成。
 
+![altテキスト](images/fft.png)
+
 使い方: `check_dev_id.py`でRaspberryPiに接続されているマイクのデバイス番号を取得.
 `record.py`を実行してインターホンの音を録音. `output.wav`に保存される.
 jupyternotebook`FFT.opynb`で、録音した音声をplotし、fftを行い、検出に使うデータ点を決める.
@@ -49,7 +71,6 @@ gitで、RaspberryPiとMacのjupyternotebookを同期させて開発をしまし
 
 `test_notifier.py`を実行すると、インターホンの音が検出されるとLINE Notifyに通知が来ます.
 
-![altテキスト](images/fft.png)
 
 
 #### 2. 特長 2

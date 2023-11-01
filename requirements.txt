@@ -1,5 +1,7 @@
 line-bot-sdk==3.5.0
 pigpio==1.78
+pyaudio==0.2.13
 pygame==2.5.2
 Flask==3.0.0
 matplotlib==3.8.0
+numpy==1.26.1
