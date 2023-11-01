@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 Check_every_time = True  # 検知したときにFFTプロット。実際に運用するときはFalse。
 
 RECORD_SECONDS = 1
-threshold = 1.0e6  # 要調整
+threshold = 2.0e6  # 要調整
 freq_indices = [697, 833, 834, 835, 1669, 2084, 2085, 2086, 2087, 2503, 2780, 2781, 2782, 3244, 3245]
 
 input_device_index = 1  # check_dev_id.pyで確認したデバイス番号に置き換え
