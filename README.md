@@ -68,7 +68,7 @@ jupyternotebook`FFT.opynb`で、録音した音声をplotし、fftを行い、�
 インターホンの音のみを検出するように、`test_detector.py`を実行しながら`threshold`の値をエンジニアリング.
 gitで、RaspberryPiとMacのjupyternotebookを同期させて開発をしました.
 
-`test_notifier.py`を実行すると、インターホンの音が検出されるとLINE Notifyに通知が来ます.
+`test_notifier.py`を実行すると、インターホンの音が検出されるとLINE Notifyに通知が来ます.インターホン音が鳴ってから、通知が来るまでには、約1秒かかります.
 
 #### 特長 2
 
