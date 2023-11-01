@@ -76,7 +76,7 @@ if __name__ == '__main__':
                 send_LINE(LINE_token, amp, amp2, threshold, threshold2)
                 if Check_every_time:
                     check_plot(d)
-                time.sleep(5)
+                time.sleep(10)
                 print("Keep watching...")
     except KeyboardInterrupt:
         print('You terminated the program.\nThe program ends.')

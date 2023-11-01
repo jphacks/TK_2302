@@ -61,7 +61,7 @@ if __name__ == '__main__':
                 print("Someone is at the door. (amp = {:.2e}/{:.1e})".format(amp, threshold))
                 if Check_every_time:
                     check_plot(d)
-                time.sleep(5)
+                time.sleep(10)
                 print("Keep watching...")
     except KeyboardInterrupt:
         print('You terminated the program.\nThe program ends.')
