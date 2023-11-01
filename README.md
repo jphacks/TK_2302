@@ -100,13 +100,13 @@ AppleWachをつけておけば、LINEの通知で誰が来たかを瞬時に確�
 
 - LINE Messaging API
 - LINE Notify API
-- ngrok
 
 #### フレームワーク・ライブラリ・モジュール
 
 - Flask
 - pyaudio
 - opencv
+- ngrok
 
 #### デバイス
 
