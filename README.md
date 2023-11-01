@@ -11,14 +11,15 @@ sudo apt-get install tmux -y
 tmux
 
 #session1 (Notify.pyを実行)
+source myenv/bin/activate
 sudo apt-get install portaudio19-dev
 sudo apt-get install libopenblas-dev
 sudo apt-get install python3-pandas
-source myenv/bin/activate
 pip install -r requirements.txt
 python Notify.py
 
 #session2 (Unlocker.pyを実行)
+source myenv/bin/activate
 sudo pigpiod
 python Unlocker.py
 
@@ -64,7 +65,7 @@ https://zenn.dev/yukitezuka/articles/1985fc12052e5a
 使い方: `check_dev_id.py`でRaspberryPiに接続されているマイクのデバイス番号を取得.
 `record.py`を実行してインターホンの音を録音. `output.wav`に保存される.
 jupyternotebook`FFT.opynb`で、録音した音声をplotし、fftを行い、検出に使うデータ点を決める.
-インターホンの音のみを検出するように、`test_detector.py`を実行しながらエンジニアリング.
+インターホンの音のみを検出するように、`test_detector.py`を実行しながら`threshold`の値をエンジニアリング.
 gitで、RaspberryPiとMacのjupyternotebookを同期させて開発をしました.
 
 `test_notifier.py`を実行すると、インターホンの音が検出されるとLINE Notifyに通知が来ます.
