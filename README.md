@@ -32,7 +32,7 @@ ngrok http 8000
 ```
 
 
-スイッチングはサーボモータもしくはswithBotAPIを使用. 
+スイッチングはサーボモータもしくはswithBotAPIを使用。
 スピーカーを接続することで、音声でも”おかえり"と言わせることができます。
 
 ## 製品概要
@@ -69,9 +69,10 @@ gitで、RaspberryPiとMacのjupyternotebookを同期させて開発をしまし
 
 `test_notifier.py`を実行すると、インターホンの音が検出されるとLINE Notifyに通知が来ます.
 
-
-
 #### 2. 特長 2
+
+`Notify.py`:インターホンの音を認識すると接続されたwebカメラで撮影を行い、LINE notifyに通知させる。
+![altテキスト](images/IMG_9662F0B5F614-1.jpeg)
 
 
 ### 解決出来ること
