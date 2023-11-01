@@ -78,7 +78,7 @@ if __name__ == '__main__':
                 if Check_every_time:
                     # You can display the image here if needed
                     pass
-                time.sleep(5)
+                time.sleep(10)
                 print("Keep watching...")
     except KeyboardInterrupt:
         print('You terminated the program.\nThe program ends.')
