@@ -46,8 +46,7 @@ def delivery_unlock_sequence():
     set_servo_angle(60)
     time.sleep(0.5)
     set_servo_angle(90)
-    time.sleep(0.5)
-    play_sound("audio/app/announcement.mp3", volume=20.0)
+    time.sleep(1)
     set_servo_angle(119)
     time.sleep(0.5)
     set_servo_angle(90)
@@ -66,14 +65,12 @@ def homecoming_unlock_sequence():
     time.sleep(1)
 
 DELIVERY_MESSAGES = [
-    '開けておいたよ！',
-    '置き配って伝えておいたよ〜！'
+    '開けたよー、置き配しておいたよー！'
 ]
 
 HOMECOMING_MESSAGES = [
-    'おかえり〜！鍵開けたよー',
-    'お帰りなさい！',
-    'おかえりだね！鍵開けたよー',
+    'おかえり！鍵開けたよー！',
+    'お帰りなさい！今日も一日ご苦労様です！',
     'おつかれさま！'
 ]
 
@@ -90,10 +87,10 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     text = event.message.text
-    if text in ['ただいま', '鍵開けて']:
+    if text in ['ただいま！']:
         homecoming_unlock_sequence()
         response_message = random.choice(HOMECOMING_MESSAGES)
-    elif text in ['宅配']:
+    elif text in ['置き配して']:
         delivery_unlock_sequence()
         response_message = random.choice(DELIVERY_MESSAGES)
     else:
