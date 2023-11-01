@@ -10,22 +10,20 @@ sudo apt-get update
 sudo apt-get install tmux -y
 tmux
 
-#session1
+#session1 (Notify.pyを実行)
 sudo apt-get install portaudio19-dev
 sudo apt-get install libopenblas-dev
 sudo apt-get install python3-pandas
 source myenv/bin/activate
 pip install -r requirements.txt
-
 python Notify.py
 
-#session2
+#session2 (Unlocker.pyを実行)
 sudo pigpiod
-
 python Unlocker.py
 
-#session3
-unzip ngrok-stable-linux-arm.zip # ngrokをinstall
+#session3 (ngrokを起動)
+unzip ngrok-stable-linux-arm.zip
 chmod +x ngrok
 sudo mv ngrok /usr/local/bin/
 ngrok authtoken YOUR_AUTHTOKEN
