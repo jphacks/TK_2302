@@ -15,7 +15,7 @@ threshold2 = 5
 freq_indices = [697, 833, 834, 835, 1669, 2084, 2085, 2086, 2087, 2503, 2780, 2781, 2782, 3244, 3245]
 freq_indices2 = [f * 2 for f in freq_indices]
 
-input_device_index = 1  # check_dev_id.pyで確認したusbマイク番号
+input_device_index = 2  # check_dev_id.pyで確認したusbマイク番号
 CHUNK = 1024 * 8
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
