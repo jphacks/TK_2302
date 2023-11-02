@@ -19,7 +19,7 @@ input_device_index = 1  # check_dev_id.pyで確認したusbマイク番号
 CHUNK = 1024 * 8
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
-RATE = 48000
+RATE = 44100
 rng = int(RATE / CHUNK * RECORD_SECONDS)
 
 def setup():
