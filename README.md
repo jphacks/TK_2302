@@ -66,10 +66,8 @@ https://zenn.dev/yukitezuka/articles/1985fc12052e5a
 使い方: `check_dev_id.py`でRaspberryPiに接続されているマイクのデバイス番号を取得.
 `record.py`を実行してインターホンの音を録音. `output.wav`に保存される.
 jupyternotebook`FFT.opynb`で、録音した音声をplotし、fftを行い、検出に使うデータ点を決める.
-インターホンの音のみを検出するように、`test_detector.py`を実行しながら`threshold`の値をエンジニアリング.
+インターホンの音のみを検出するように、`test_Notify.py`を実行しながら`threshold`の値をエンジニアリング.インターホン音が鳴ってから、通知が来るまでには、約1秒かかります.
 gitで、RaspberryPiとMacのjupyternotebookを同期させて開発をしました.
-
-`test_notifier.py`を実行すると、インターホンの音が検出されるとLINE Notifyに通知が来ます.インターホン音が鳴ってから、通知が来るまでには、約1秒かかります.
 
 #### 特長 2
 
