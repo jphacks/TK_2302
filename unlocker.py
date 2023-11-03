@@ -90,7 +90,7 @@ def handle_message(event):
     if text in ['ただいま！']:
         homecoming_unlock_sequence()
         response_message = random.choice(HOMECOMING_MESSAGES)
-    elif text in ['置き配して', '明けて']:
+    elif text in ['置き配して', '開けて']:
         delivery_unlock_sequence()
         response_message = random.choice(DELIVERY_MESSAGES)
     else:
