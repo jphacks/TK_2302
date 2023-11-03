@@ -15,6 +15,7 @@ source myenv/bin/activate
 sudo apt-get install portaudio19-dev
 sudo apt-get install libopenblas-dev
 sudo apt-get install python3-pandas
+sudo apt-get install fswebcam
 pip install -r requirements.txt
 python Notify.py
 
