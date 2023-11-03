@@ -9,7 +9,7 @@ Check_every_time = False
 LINE_token = "U7lf4Njva7q2of618fHlbXfMeDneRPSSUdWsRp3rR3G"
 
 RECORD_SECONDS = 1
-threshold = 1.0e5 # 要調整
+threshold = 1.0e7 # 要調整
 threshold2 = 5
 freq_indices = [510, 511, 512, 513, 514, 515, 516, 639, 640, 641, 642, 643, 644, 768, 769, 770, 771, 1539, 2308, 2309]
 freq_indices2 = [ f*2 for f in freq_indices ]
