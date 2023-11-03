@@ -9,9 +9,9 @@ Check_every_time = False
 LINE_token = "U7lf4Njva7q2of618fHlbXfMeDneRPSSUdWsRp3rR3G"
 
 RECORD_SECONDS = 1
-threshold = 1.0e7 # 要調整
+threshold = 1.0e8 # 要調整
 threshold2 = 5
-freq_indices = [697, 833, 834, 835, 1669, 2084, 2085, 2086, 2087, 2503, 2780, 2781, 2782, 3244, 3245]
+freq_indices = [766, 767, 1533, 1915, 1916, 1917, 1918, 1919, 2299, 2300, 2301]
 freq_indices2 = [ f*2 for f in freq_indices ]
 
 input_device_index = 1 

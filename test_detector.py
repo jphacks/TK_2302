@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 Check_every_time = True  # 検知したときにFFTプロット。実際に運用するときはFalse。
 
 RECORD_SECONDS = 1
-threshold = 1.0e7  # 要調整
-freq_indices = [697, 833, 834, 835, 1669, 2084, 2085, 2086, 2087, 2503, 2780, 2781, 2782, 3244, 3245]
+threshold = 1.0e8  # 要調整
+freq_indices = [766, 767, 1533, 1915, 1916, 1917, 1918, 1919, 2299, 2300, 2301]
 
 input_device_index = 1  # check_dev_id.pyで確認したデバイス番号に置き換え
 CHUNK = 1024 * 8
