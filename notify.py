@@ -57,10 +57,10 @@ def capture_and_save_image():
         print(f"Failed to capture image: {e}")
 
 # Function to send an image via LINE Notify
-def send_image_via_LINE(token, image_path):
+def send_image_via_LINE(token, image_path, amp, amp2, threshold, threshold2):
     url = "https://notify-api.line.me/api/notify"
     headers = {"Authorization": "Bearer " + token}
-    message = "誰か来たよ〜"
+    message = "誰か来たよ〜\n強度 {:.2e} --- 基準 {:.1e}\n比率 {:.2e} --- 基準 {:.1e}".format(amp,threshold,amp/amp2,threshold2)
     payload = {"message": message}
     files = {"imageFile": (image_path, open(image_path, "rb"), "image/jpeg")}
     r = requests.post(url, headers=headers, params=payload, files=files)
