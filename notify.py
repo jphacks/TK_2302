@@ -75,7 +75,7 @@ if __name__ == '__main__':
             if (amp > threshold) and (amp / amp2 > threshold2):
                 print("Someone is at the door.")
                 capture_and_save_image()  # Capture and save an image
-                send_image_via_LINE(LINE_token, "captured_image.jpg, amp, amp2, threshold, threshold2")  # Send the image
+                send_image_via_LINE(LINE_token, "captured_image.jpg", amp, amp2, threshold, threshold2)  # Send the image
                 if Check_every_time:
                     pass
                 time.sleep(10)
