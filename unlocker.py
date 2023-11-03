@@ -65,7 +65,7 @@ def homecoming_unlock_sequence():
     time.sleep(1)
 
 DELIVERY_MESSAGES = [
-    '開けたよー、置き配しておいたよー！'
+    '開けました！'
 ]
 
 HOMECOMING_MESSAGES = [
@@ -90,7 +90,7 @@ def handle_message(event):
     if text in ['ただいま！']:
         homecoming_unlock_sequence()
         response_message = random.choice(HOMECOMING_MESSAGES)
-    elif text in ['置き配して']:
+    elif text in ['置き配して', '明けて']:
         delivery_unlock_sequence()
         response_message = random.choice(DELIVERY_MESSAGES)
     else:
