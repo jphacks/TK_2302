@@ -65,7 +65,7 @@ def homecoming_unlock_sequence():
     time.sleep(1)
 
 DELIVERY_MESSAGES = [
-    '開けました！'
+    '開けたよ〜！'
 ]
 
 HOMECOMING_MESSAGES = [
