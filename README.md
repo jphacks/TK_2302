@@ -4,8 +4,6 @@
 ## セットアップ(RaspberryPi+usbマイク+usbカメラが必要)
 
 ```bash
-export LINE_CHANNEL_SECRET=YOUR_LINE_CHANNEL_SECRET
-export LINE_CHANNEL_ACCESS_TOKEN=YOUR_LINE_CHANNEL_ACCESS_TOKEN
 sudo apt-get update
 sudo apt-get upgrade -y
 sudo apt-get install tmux portaudio19-dev libopenblas-dev python3-pandas fswebcam -y
@@ -17,6 +15,8 @@ python notify.py
 
 #session2 (Unlocker.pyを実行)
 source env/bin/activate
+export LINE_CHANNEL_SECRET=YOUR_LINE_CHANNEL_SECRET
+export LINE_CHANNEL_ACCESS_TOKEN=YOUR_LINE_CHANNEL_ACCESS_TOKEN
 sudo pigpiod
 python unlocker.py
 
