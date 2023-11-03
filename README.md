@@ -7,22 +7,18 @@
 export LINE_CHANNEL_SECRET=YOUR_LINE_CHANNEL_SECRET
 export LINE_CHANNEL_ACCESS_TOKEN=YOUR_LINE_CHANNEL_ACCESS_TOKEN
 sudo apt-get update
-sudo apt-get install tmux -y
+sudo apt-get upgrade -y
+sudo apt-get install tmux portaudio19-dev libopenblas-dev python3-pandas fswebcam -y
 tmux
 
 #session1 (Notify.pyを実行)
-source myenv/bin/activate
-sudo apt-get install portaudio19-dev
-sudo apt-get install libopenblas-dev
-sudo apt-get install python3-pandas
-sudo apt-get install fswebcam
-pip install -r requirements.txt
-python Notify.py
+source env/bin/activate
+python notify.py
 
 #session2 (Unlocker.pyを実行)
-source myenv/bin/activate
+source env/bin/activate
 sudo pigpiod
-python Unlocker.py
+python unlocker.py
 
 #session3 (ngrokを起動)
 unzip ngrok-stable-linux-arm.zip
