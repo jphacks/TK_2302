@@ -2,7 +2,7 @@
 
 import pyaudio
 import wave
-input_device_index = 2 # check_dev_id.pyで確認したデバイス番号に置き換え
+input_device_index = 1 # check_dev_id.pyで確認したデバイス番号に置き換え
 CHUNK = 4096
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
