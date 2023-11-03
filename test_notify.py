@@ -18,7 +18,7 @@ input_device_index = 1
 CHUNK = 1024 * 8 
 FORMAT = pyaudio.paInt16
 CHANNELS = 1 
-RATE = 44100 
+RATE = 48000
 rng = int(RATE / CHUNK * RECORD_SECONDS)
 
 def setup():

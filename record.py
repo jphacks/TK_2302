@@ -6,7 +6,7 @@ input_device_index = 2 # check_dev_id.pyで確認したデバイス番号に置�
 CHUNK = 4096
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
-RATE = 44100
+RATE = 48000
 RECORD_SECONDS = 10
 WAVE_OUTPUT_FILENAME = "output.wav"
 
