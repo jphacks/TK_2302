@@ -42,31 +42,29 @@ def play_sound(file_path, volume=20.0):
     while pygame.mixer.music.get_busy():
         pygame.time.Clock().tick(10)
 
-def delivery_unlock_sequence():
-    set_servo_angle(60)
-    time.sleep(0.5)
-    set_servo_angle(90)
-    time.sleep(1)
-    set_servo_angle(119)
-    time.sleep(0.5)
-    set_servo_angle(90)
-    time.sleep(1)
-
-def homecoming_unlock_sequence():
+# 置き配の時は、アナウンスして鍵を開ける
+def unlock_playsound():
     set_servo_angle(60)
     time.sleep(0.5)
     set_servo_angle(90)
     time.sleep(0.5)
-    audio_choice = random.choice(["audio/voice1.mp3", "audio/voice2.mp3","audio/voice3.mp3" ])
+    audio_choice = random.choice(["audio/delivery_announcement.mp3" ])
     play_sound(audio_choice, volume=20.0)
     set_servo_angle(119)
     time.sleep(0.5)
     set_servo_angle(90)
     time.sleep(1)
 
-DELIVERY_MESSAGES = [
-    '開けたよ〜！'
-]
+# アナウンスなしで鍵を開ける
+def unlock():
+    set_servo_angle(60)
+    time.sleep(0.5)
+    set_servo_angle(90)
+    time.sleep(0.5)
+    set_servo_angle(119)
+    time.sleep(0.5)
+    set_servo_angle(90)
+    time.sleep(1)
 
 HOMECOMING_MESSAGES = [
     'おかえり！鍵開けたよー！',
@@ -87,12 +85,15 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     text = event.message.text
-    if text in ['ただいま！']:
-        homecoming_unlock_sequence()
+    if text in ['ただいま〜！']:
+        unlock()
         response_message = random.choice(HOMECOMING_MESSAGES)
-    elif text in ['置き配して', '開けて']:
-        delivery_unlock_sequence()
-        response_message = random.choice(DELIVERY_MESSAGES)
+    elif text in ['開けて！']:
+        unlock()
+        response_message = '開けたよ〜！'
+    elif text in ['置き配して！']:
+        unlock_playsound() 
+        response_message = '置き配しておいたよー'
     else:
         response_message = text
     line_bot_api.reply_message(event.reply_token, TextSendMessage(response_message))

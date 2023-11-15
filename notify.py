@@ -6,10 +6,10 @@ import requests
 import subprocess
 
 Check_every_time = False
-LINE_token = "YOUR_LINE_NOTIFY_TOKEN"
+LINE_token = "U7lf4Njva7q2of618fHlbXfMeDneRPSSUdWsRp3rR3G"
 
 RECORD_SECONDS = 1
-threshold = 1.0e7
+threshold = 5.0e7
 threshold2 = 5
 freq_indices = [510, 511, 512, 513, 514, 515, 516, 639, 640, 641, 642, 643, 644, 768, 769, 770, 771, 1539, 2308, 2309]
 freq_indices2 = [f * 2 for f in freq_indices]
@@ -60,7 +60,7 @@ def capture_and_save_image():
 def send_image_via_LINE(token, image_path, amp, amp2, threshold, threshold2):
     url = "https://notify-api.line.me/api/notify"
     headers = {"Authorization": "Bearer " + token}
-    message = "誰か来たよ〜\n強度 {:.2e} --- 基準 {:.1e}\n比率 {:.2e} --- 基準 {:.1e}".format(amp,threshold,amp/amp2,threshold2)
+    message = "❗️\n誰か来たよ〜\n強度 {:.2e} --- 基準 {:.1e}\n比率 {:.2e} --- 基準 {:.1e}".format(amp,threshold,amp/amp2,threshold2)
     payload = {"message": message}
     files = {"imageFile": (image_path, open(image_path, "rb"), "image/jpeg")}
     r = requests.post(url, headers=headers, params=payload, files=files)
