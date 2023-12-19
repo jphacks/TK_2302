@@ -8,8 +8,8 @@ from linebot.models import ImageSendMessage, TextSendMessage
 import time
 
 # AWS S3の設定
-aws_access_key_id = 'AKIASBTXWFRW4JEVGCMN'
-aws_secret_access_key = 'wpQWTV/+3N8EsuSHtfgX2UPXizMlq/2MPqPTHGwj'
+aws_access_key_id = 'YOUR_ACCESS_KEY'
+aws_secret_access_key = 'YOUR_SECRET_KEY'
 bucket_name = 'linebot-raspi-images'
 
 # Line Botの設定
